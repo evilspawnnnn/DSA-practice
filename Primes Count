@@ -1,0 +1,33 @@
+#include<iostream>
+using namespace std;
+bool isPrime(int N){
+    bool pr=true;
+    if(N<2)
+        pr=false;
+    for(int i=2;i<N;i++){
+        if(N%i==0){
+            pr=false;
+            break;
+        }
+        if(N%i!=0&&i==N-1)
+            pr=true;
+        else
+            continue;
+    }
+    return pr;
+}
+int main(){
+    int n;
+    cin>>n;
+    int count;
+    int sum=0;
+    for(int i=1;i<=n;i++){
+        if(isPrime(i)){
+            cout<<i<<endl;
+            sum+=i;
+            count++;
+        }
+    }
+    cout<<"Count="<<count<<endl;
+    cout<<"Sum="<<sum<<endl;
+}
