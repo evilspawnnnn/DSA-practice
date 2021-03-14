@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    int m=(n + 1)/2;
+    int i=1;
+    while(i<=m){
+        int k=1;
+        while(k<=m-i){
+            cout<<' ';
+            k++;
+        }
+        int j=1;
+        while(j<=i){
+            cout<<'*';
+            j++;
+        }
+        int l=m+i-1;
+        while(l>m){
+            cout<<'*';
+            l--;
+        }
+        cout<<endl;
+        i++;
+    }
+    int o=m-1;
+    int s=1;
+    while(s<=o){
+        int k=1;
+        while(k<=s){
+            cout<<' ';
+            k++;
+        }
+        int j=1;
+        while(j<=2*(o-s)+1){
+            cout<<'*';
+            j++;
+        }
+        cout<<endl;
+        s++;
+    }
+    
+}
