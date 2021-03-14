@@ -1,0 +1,51 @@
+int partision(int arr[],int si,int ei){
+    int i=si+1;
+    int j=ei;
+    int count=0;
+    while(i<=ei){
+    	if(arr[si]>=arr[i]){
+			count++;
+    	}
+        i++;
+    }
+    int temp=arr[si+count];
+    arr[si+count]=arr[si];
+    arr[si]=temp;
+    int k=si;
+    while(k<si+count&&j>si+count){
+        if(arr[k]<=arr[si+count]){
+			k++;
+        }
+        else if(arr[j]>arr[si+count]){
+            j--;
+        }
+        else{
+            int Temp=arr[j];
+            arr[j]=arr[k];
+            arr[k]=Temp;
+            k++;
+            j--;
+        }
+    }
+    return si+count;
+}
+
+void quick_sort(int arr[],int si,int ei){
+	if(si>=ei){
+        return;
+    }
+    int c=partision(arr,si,ei);
+    quick_sort(arr,si,c-1);
+    quick_sort(arr,c+1,ei);
+}
+
+void quickSort(int input[], int size) {
+  /* Don't write main().
+     Don't read input, it is passed as function argument.
+     Change in the given array itself.
+     Taking input and printing output is handled automatically.
+  */
+	int si=0;
+    int ei=size-1;
+    quick_sort(input,si,ei);
+}
