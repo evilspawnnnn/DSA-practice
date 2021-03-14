@@ -1,0 +1,47 @@
+void merge_sort(int arr[],int si,int ei){
+    //int newArr[1000000];
+    if(si>=ei){
+        return;
+    }
+    int mid=(si+ei)/2;
+    merge_sort(arr,si,mid);
+    merge_sort(arr,mid+1,ei);
+    int newArr[1000000];
+    int i=si;
+    int k=0;
+    int j=mid+1;
+    while(i<=mid && j <= ei){
+         if(arr[i]<=arr[j]){
+            newArr[k]=arr[i];
+            i++;
+            k++;
+        }
+        else{
+            newArr[k]=arr[j];
+            k++;
+            j++;
+        }
+    }
+    while(i <= mid){
+        newArr[k] = arr[i];
+        k++;
+        i++;
+    }
+    while(j <= ei){
+        newArr[k] = arr[j];
+        k++;
+        j++;
+    }
+    int index = si;
+    for(int p=0;p<k;p++){
+        arr[index]=newArr[p];
+        index++;
+    }
+    // delete []newArr;
+}
+
+void mergeSort(int input[], int size){
+	// Write your code here
+    merge_sort(input,0,size-1);
+}
+
