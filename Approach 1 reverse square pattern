@@ -1,0 +1,20 @@
+//Approach 1 for reversed square pattern
+#include <iostream>
+using namespace std;
+int main(){
+int n;
+cin>>n;
+int i=1;
+while(i<=n){
+    int j=1;
+    int val=n;
+    while(j<=n){
+        cout<<val;
+        val--;
+        j++;
+    }
+    cout<<endl;
+    i++;
+}
+}
+
