@@ -1,0 +1,24 @@
+
+//To check if n is a part of FIBONACCI SERIES or not.
+#include <iostream>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    int a=0;
+    int b=1;
+    int c;
+    bool present=false;
+    while(a<=n){
+        if(a==n){
+            present=true;
+            break;
+        }
+        else{
+            c=a+b;
+            a=b;
+            b=c;
+        }
+    }
+    cout<<present<<endl;
+}
