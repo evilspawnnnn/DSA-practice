@@ -1,0 +1,16 @@
+#include<iostream>
+using namespace std;
+int main(){
+int n;
+cin>>n;
+int a=0,b=1;
+int c;
+while(a<=n){
+    cout<<a<<endl;
+    c=a+b;
+    a=b;
+    b=c;
+}
+}
+
+
