@@ -1,0 +1,14 @@
+#include <bits/stdc++.h>
+int stringToNumber(char input[]) {
+    // Write your code here
+	if(strlen(input)==1){
+        int a=input[0]-'0';
+        return a;
+    }
+    int b=stringToNumber(input+1);
+    int c=input[0]-48;
+    return c*pow(10,strlen(input)-1)+b;
+}
+
+
+
