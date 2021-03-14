@@ -1,0 +1,43 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+int keypad(int num, string output[]){
+    if(num==0){
+        output[0]="";
+        return 1;
+    }
+    string output2[1000000];
+    string mapping[]={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    int count= keypad(num/10,output);
+    if(num%10 != 9 && num%10 != 7){
+        for(int i=0;i<count;i++){
+            output2[i]=output[i];
+            output[i]=output[i]+mapping[num%10][0];
+            output[i+count]=output2[i]+mapping[num%10][1];
+            output[i+2*count]=output2[i]+mapping[num%10][2];
+        }
+        return count*3;
+    }    
+    else {
+        for(int i=0;i<count;i++){
+            output2[i]=output[i];
+            output[i]=output[i]+mapping[num%10][0];
+            output[i+count]=output2[i]+mapping[num%10][1];
+            output[i+2*count]=output2[i]+mapping[num%10][2];
+            output[i+3*count]=output2[i]+mapping[num%10][3];
+        }
+        return count*4;
+    }
+}
+int main(){
+    int input;
+    cin>>input;
+    string* output=new string[1000000];
+    int count=keypad(input,output);
+    for(int i=0;i<count;i++){
+        cout<<output[i]<<endl;
+    }
+    delete []output;
+    return 0;
+}
