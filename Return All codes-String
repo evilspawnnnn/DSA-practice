@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+#include <string.h>
+using namespace std;
+
+int getCodes(string input, string output[10000]) {
+    /*
+    You are given the input text and output string array. Find all possible codes and store in the output string array. Don’t print the codes.
+    Also, return the number of codes return to the output string. You do not need to print anything.
+    */
+    if(input.empty()){
+        output[0]="";
+        return 1;
+    }
+    int i=input[0]-'0';
+    char j=i+'a'-1;
+    string o1[10000];
+    int num1=getCodes(input.substr(1),o1);
+    for(int k=0;k<num1;k++){
+        output[k]=j+o1[k];
+    }
+    int l=input[1]-'0';
+    int m=i*10+l;
+    if(m>=10 && m<=26){
+        char ch=m+'a'-1;
+        string o2[10000];
+        int num2=getCodes(input.substr(2),o2);
+        for(int n=num1,o=0;n<num1+num2 && o<num2;n++,o++){
+            output[n]=ch+o2[o];
+        }
+        return num1+num2;
+    }
+    return num1;
+}
+int main(){
+    string input;
+    cin >> input;
+
+    string output[10000];
+    int count = getCodes(input, output);
+    for(int i = 0; i < count && i < 10000; i++)
+        cout << output[i] << endl;
+    return 0;
+}
