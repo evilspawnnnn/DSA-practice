@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int input[100000],length,element, ans;
+    cin >> length;
+    for(int i =0;i<length;i++)
+    { 
+        cin >> input[i];;
+    }
+
+    cin>>element;
+    ans = binarySearch(input, length, element);
+    cout<< ans << endl;
+}
+
+int helper(int input[],int si,int ei,int element){
+    if(si>ei){
+        return -1;
+    }
+    if(si==ei&&input[ei]==element){
+        return si;
+    }
+    int mid=(si+ei)/2;
+    if(input[mid]==element){
+		return mid;
+    }
+    else if(input[mid]>element){
+        helper(input,si,mid-1,element);
+    }
+    else{
+        helper(input,mid+1,ei,element);
+    }
+}
+
+
+
+int binarySearch(int input[], int size, int element) {
+    int si=0;
+    int ei=size-1;
+    helper(input,si,ei,element);
+}
