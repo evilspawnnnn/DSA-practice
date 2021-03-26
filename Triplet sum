@@ -1,0 +1,63 @@
+int pairSum(int *arr, int i,int j, int num)
+{
+    int ans = 0; // total pairs
+    //sort(arr, arr+n);
+    //int i = 0; // left ptr
+    //int j = n-1; // right ptr
+    while(i<j){
+        int n1 = arr[i];
+        int n2 = arr[j];
+        int temp = n1 + n2;
+        if(temp < num){
+            i++;
+        }
+        else if(temp > num){
+            j--;
+        }
+        else {
+            // now here are 2 cases
+            // 1. if n1 != n2
+            // 2. if n1 == n2
+            if(n1 != n2){
+                int f1 = 1; // freq of n1
+                int f2 = 1; // freq of n2
+                i++;
+                // computing f1 and f2
+                while(arr[i] == n1){
+                    f1++;
+                    i++;
+                }
+                
+                j--;
+                while(arr[j] == n2){
+                    f2++;
+                    j--;
+                }
+                int pairs = f1 * f2;
+                ans += pairs;
+            } 
+            else {
+                int f = j-i+1; // freq of the number
+                int pairs = ((f)*(f-1))/2;  //fC2
+                ans += pairs;
+                break;
+            }
+        }
+    }
+    return ans;
+}
+int tripletSum(int *arr, int n, int num) {
+	if (n == 0)
+		return 0;
+
+	sort(arr, arr + n);
+
+	int finalCount = 0;
+
+	for (int i = 0; i < n; i++) {
+		int pairSumFor = num - arr[i];
+		finalCount +=  pairSum(arr, i + 1, n - 1, pairSumFor);
+	}
+
+	return finalCount;
+}
