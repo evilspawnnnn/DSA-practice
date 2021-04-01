@@ -1,0 +1,49 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+class Fraction{
+    private:
+    int numerator;
+    int denominator;
+    public:
+    Fraction(int numerator,int denominator){
+        this->numerator=numerator;
+        this->denominator=denominator;
+    }
+    void print(){
+        cout<<numerator<<"/"<<denominator<<endl;
+    }
+    void simplify(){
+        int gcd=1;
+        int j=min(numerator,denominator);
+        for(int i=1;i<=j;i++){
+            if(numerator%i==0&&denominator%i==0){
+                gcd=i;
+            }
+        }
+        numerator/=gcd;
+        denominator/=gcd;
+    }
+    Fraction& operator++(){                                      //Operator overloading for pre increment operator
+        numerator+=denominator;
+        simplify();
+        return *this;
+    }
+    Fraction operator++(int){                                   //Operator overloading for post increment operator
+        Fraction fnew(numerator,denominator);
+        numerator+=denominator;
+        simplify();
+        fnew.simplify();
+        return fnew;
+    }
+    Fraction& operator+=(){                                     //Operator overloading for += operator
+        int lcm=denominator*f2.denominator;
+        int x=lcm/denominator;
+        int y=lcm/f2.denominator;
+        int num=numerator*x + (f2.numerator*y);
+        numerator=num;
+        denominator=lcm;
+        simplify()
+        return *this;
+    }
+};
