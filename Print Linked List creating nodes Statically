@@ -1,0 +1,33 @@
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+class Node{
+  public:
+  int data;
+  Node *next;
+  Node(int data){
+    this->data=data;
+    next=NULL;
+  }
+};
+void print(Node *head){
+    Node *temp=head;            //Print Function to print all elements of the Linked List
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+int main(){
+    //Declaring nodes statically
+    Node n1(10);
+    Node *head= &n1; //storing address of first node in a pointer named head of type node
+    Node n2(20);
+    Node n3(30);
+    Node n4(40);
+    Node n5(50);
+    n1.next= &n2; //connecting nodes with each-other to form a Linked List
+    n2.next= &n3;
+    n3.next= &n4;
+    n4.next= &n5;
+    print(head);
+}
