@@ -21,18 +21,24 @@ Node* takeInput(){          //return type is Node* as we return head pointer
     int data;
     cin>>data;
     Node* head=NULL;
+    Node* tail=NULL
     while(data!=-1){        //using -1 as loop terminator
         Node* newNode=new Node(data);
         if(head==NULL){
             head=newNode;
+            tail=newnode;
         }
-        else{
+       else{
+            tail->next=newNode;   //because of this TC is n
+            tail=newNode;
+        }
+        /*else{
             Node* temp=head;
-            while(temp->next!=NULL){
+            while(temp->next!=NULL){    //because of this TC was n2
                 temp=temp->next;
-            }
-            temp->next=newNode;
-        }
+            }   
+            temp->next=newNode
+        }*/
         cin>>data;
     }
     return head;
