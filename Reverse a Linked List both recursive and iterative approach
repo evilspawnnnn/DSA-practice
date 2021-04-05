@@ -1,0 +1,80 @@
+#include <iostream>
+
+class Node
+{
+public:
+	int data;
+	Node *next;
+	Node(int data)
+	{
+		this->data = data;
+		this->next = NULL;
+	}
+};
+
+using namespace std;
+#include "solution.h"
+
+Node *takeinput()
+{
+	int data;
+	cin >> data;
+	Node *head = NULL, *tail = NULL;
+	while (data != -1)
+	{
+		Node *newnode = new Node(data);
+		if (head == NULL)
+		{
+			head = newnode;
+			tail = newnode;
+		}
+		else
+		{
+			tail->next = newnode;
+			tail = newnode;
+		}
+		cin >> data;
+	}
+	return head;
+}
+void printReverse(Node *head)
+{
+    //Write your code here
+    if(head==NULL){
+        return;
+    }
+    if(head->next==NULL){
+        cout<<head->data<<" ";
+        return;
+    }
+    /*Node* temp=head;
+    int count=0;
+    while(temp!=NULL){
+        count++;
+        temp=temp->next;
+    }							                                      //Approach-1 of very high TC of n2
+    while(count>0){
+        Node* temp2=head;
+        int i=0;
+        while(i<count-1){
+            temp2=temp2->next;
+            i++;
+        }
+        cout<<temp2->data<<" ";
+        count--;
+    }*/
+    printReverse(head->next);	                      //Approach-2 using recursion with TV of n
+    cout<<head->data<<" ";
+}
+int main()
+{
+	int t;
+	cin >> t;
+	while (t--)
+	{
+		Node *head = takeinput();
+		printReverse(head);
+		cout << endl;
+	}
+	return 0;
+}
