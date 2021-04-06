@@ -1,0 +1,112 @@
+#include <iostream>
+
+class Node
+{
+public:
+	int data;
+	Node *next;
+	Node(int data)
+	{
+		this->data = data;
+		this->next = NULL;
+	}
+};
+
+using namespace std;
+#include "solution.h"
+
+Node *takeinput()
+{
+	int data;
+	cin >> data;
+	Node *head = NULL, *tail = NULL;
+	while (data != -1)
+	{
+		Node *newnode = new Node(data);
+		if (head == NULL)
+		{
+			head = newnode;
+			tail = newnode;
+		}
+		else
+		{
+			tail->next = newnode;
+			tail = newnode;
+		}
+		cin >> data;
+	}
+	return head;
+}
+Node* helper(Node* head){			                                           //helper function made to reverse the secong half of linked list
+    if(head==NULL||head->next==NULL){	
+		return head;
+    }
+    Node* temp=helper(head->next);		                                  //recursive call made	
+    Node* temp2=temp;
+    while(temp2->next!=NULL){
+        temp2=temp2->next;
+    }
+    head->next=NULL;
+    temp2->next=head;						                                      //first element of passed Linked list added as last node 
+    return temp;
+}
+bool isPalindrome(Node *head)
+{
+    //Write your code here
+	if(head==NULL || head->next==NULL){
+        return true;
+    }
+    int count=0;				                                            //count variable to count number of elements
+    Node* temp=head;						
+    while(temp!=NULL){
+        temp=temp->next;
+        count++;
+    }
+    int n;					                                              //variable n which will store the mid value
+    if(count%2==0){
+    	 n=count/2;			                                            //when even number of elements
+    }
+    else{
+        n=(count+1)/2;		                                        //when odd nuber of elements
+    }
+    Node* temp2=head;
+    int i=0;
+    while(i<n-1){
+        temp2=temp2->next;
+        i++;
+    }
+    Node* temp3=temp2->next;
+    temp2->next=NULL;
+    temp3=helper(temp3);
+    Node* current1=head;
+    //Node* current2=temp3;
+    while(current1!=NULL && temp3!=NULL){
+		if(current1->data==temp3->data){
+            current1=current1->next;
+            temp3=temp3->next;
+        }	
+        else{
+			return false;
+        }
+    }
+    return true;    
+}
+    
+int main()
+{
+	int t;
+	cin >> t;
+
+	while (t--)
+	{
+		Node *head = takeinput();
+		bool ans = isPalindrome(head);
+
+		if (ans) cout << "true";
+		else cout << "false";
+
+		cout << endl;
+	}
+
+	return 0;
+}
