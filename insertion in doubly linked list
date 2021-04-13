@@ -1,0 +1,79 @@
+#include <iostream>
+using namespace std;
+class Node{
+    public:
+    int data;
+    Node* next;
+    Node* prev;
+    Node(int data){
+        this->data=data;
+        next=NULL;
+        prev=NULL;
+    }
+};
+void print(Node* head){
+    Node* temp=head;
+    while(temp!=NULL){
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+    cout<<endl;
+}
+Node* takeInput(){
+    int data;
+    cin>>data;
+    Node* head=NULL;
+    Node* tail=NULL;
+    while(data!=-1){
+        Node* newNode=new Node(data);
+        if(head==NULL){
+            head=newNode;
+            tail=newNode;
+        }
+        else{
+                // Node* temp=head;
+                // while(temp->next!=NULL){
+                //     temp=temp->next;
+                // }
+                // temp->next=newNode;
+            tail->next=newNode;
+            tail=tail->next;
+        }
+        cin>>data;
+    }
+    return head;
+}
+
+Node*insertNodeDLL(int pos,Node*head,int value){
+    if(pos==0){
+        Node* newNode=new Node(value);
+        newNode->next=head;
+        newNode->prev=NULL;
+        return newNode;
+    }
+    Node* temp=head;
+    int i=0;
+    while(i<pos-1 && temp!=NULL){
+        i++;
+        temp=temp->next;
+    }
+    if(temp!=NULL){
+        Node* newNode=new Node(value);
+        Node* t1=temp;
+        Node* t2=temp->next;
+        temp->next=newNode;
+        newNode->next=t2;
+        newNode->prev=t1;
+    }
+    return head;
+}
+int main(){
+    cout<<"Enter elements in the linked list"<<endl;
+    Node* head=takeInput();
+    print(head);
+    int i,value;
+    cout<<"Enter index and value separated by space: ";
+    cin>>i>>value;
+    head=insertNodeDLL(i,head,value);
+    print(head);
+}
