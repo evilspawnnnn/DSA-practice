@@ -1,0 +1,40 @@
+class CreateStack{
+    int* data;
+    int capacity;
+    int nextIndex;
+    public:
+    CreateStack(int totalLength){
+        data=new int[totalLength];
+        capacity=totalLength;
+        nextIndex=0;
+    }
+    int size(){
+        return nextIndex;
+    }
+    bool isEmpty(){
+        return nextIndex==0;
+    }
+    void push(int element){
+        if(nextIndex==capacity){
+            cout<<"Stack is full"<<endl;
+            return;
+        }
+        data[nextIndex]=element;
+        nextIndex++;
+    }
+    int top(){
+        if(nextIndex==0){
+            cout<<"Stack is empty"<<endl;
+            return INT_MIN;
+        }
+        return data[nextIndex-1];
+    }
+    int pop(){
+        if(nextIndex==0){
+            cout<<"Stack is empty"<<endl;
+            return INT_MIN;
+        }
+        nextIndex--;
+        return data[nextIndex];
+    }
+}
