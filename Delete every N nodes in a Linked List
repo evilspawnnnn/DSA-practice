@@ -1,0 +1,107 @@
+#include <iostream>
+
+class Node
+{
+public:
+	int data;
+	Node *next;
+	Node(int data)
+	{
+		this->data = data;
+		this->next = NULL;
+	}
+};
+
+using namespace std;
+#include "solution.h"
+
+Node *takeinput()
+{
+	int data;
+	cin >> data;
+	Node *head = NULL, *tail = NULL;
+	while (data != -1)
+	{
+		Node *newnode = new Node(data);
+		if (head == NULL)
+		{
+			head = newnode;
+			tail = newnode;
+		}
+		else
+		{
+			tail->next = newnode;
+			tail = newnode;
+		}
+		cin >> data;
+	}
+	return head;
+}
+
+void print(Node *head)
+{
+	Node *temp = head;
+	while (temp != NULL)
+	{
+		cout << temp->data << " ";
+		temp = temp->next;
+	}
+	cout << endl;
+}
+Node *skipMdeleteN(Node *head, int M, int N)
+{
+	// Write your code here
+    if(head==NULL || N==0){						//if N==0 then nothing to be deleted
+        return head;
+    }
+    if(M==0){									//if M==0 then nothing to be skipped and all to be deleted
+        head=NULL;
+        return head;
+    }
+	int count1=1;
+    int count2=1;
+    Node* temp1=head;
+    Node* temp2=temp1->next;
+    while(temp1!=NULL){
+    	while(count1!=M && temp1!=NULL){	//loop1 to traverse for the nodes to be skipped
+        	temp1=temp1->next;
+        	count1++;
+    	}
+        if(temp1!=NULL){					//to handle corner cases else runtime will come if temp1 is already at null
+    		temp2=temp1->next;
+    		while(count2!=N && temp2!=NULL){
+        		Node* temp3=temp2;
+        		temp2=temp2->next;
+        		delete temp3;			//explicitely deleting the nodes
+        		count2++;
+    		}
+        }
+    	if(temp2!=NULL && temp1!=NULL){		//temp1!=NULL done cuz if temp1 is at NULL then on delteting temp2 you will delete an element that should be present in the final output
+    		    Node*temp4=temp2;
+            temp2=temp2->next;
+            delete temp4;
+        }
+        if(temp1!=NULL){
+    		    temp1->next=temp2;
+    		    count1=1;
+            count2=1;
+        	  temp1=temp2;
+        }
+	}
+    return head;
+}
+
+int main()
+{
+	int t;
+	cin >> t;
+	while (t--)
+	{
+		Node *head = takeinput();
+		int m, n;
+		cin >> m >> n;
+		head = skipMdeleteN(head, m, n);
+		print(head);
+	}
+	return 0;
+}
