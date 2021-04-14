@@ -1,0 +1,103 @@
+#include <iostream>
+
+class Node
+{
+public:
+	int data;
+	Node *next;
+	Node(int data)
+	{
+		this->data = data;
+		this->next = NULL;
+	}
+};
+
+using namespace std;
+#include "solution.h"
+
+Node *takeinput()
+{
+	int data;
+	cin >> data;
+	Node *head = NULL, *tail = NULL;
+	while (data != -1)
+	{
+		Node *newnode = new Node(data);
+		if (head == NULL)
+		{
+			head = newnode;
+			tail = newnode;
+		}
+		else
+		{
+			tail->next = newnode;
+			tail = newnode;
+		}
+		cin >> data;
+	}
+	return head;
+}
+
+void print(Node *head)
+{
+	Node *temp = head;
+	while (temp != NULL)
+	{
+		cout << temp->data << " ";
+		temp = temp->next;
+	}
+	cout << endl;
+}
+Node *swapNodes(Node *head, int i, int j)
+{
+	//Write your code here
+    if(head==NULL || head->next==NULL || i==j){
+        return head;
+    }
+    int count1=0;
+    int count2=0;
+    Node* temp1=head;
+    Node* temp2=head;
+    while(count1<i-1){
+        count1++;
+        temp1=temp1->next;
+    }
+    while(count2<j-1){
+        count2++;
+        temp2=temp2->next;
+    }
+    if(i-j==1 || j-i==1){							//when adjacent nodes are to be swapped
+        Node* t1=temp1->next;
+        Node* t2=temp2->next->next;
+        temp1->next=temp2->next;
+        temp2->next->next=t1;
+        t1->next=t2;
+        return head;
+    }
+    else{											//when nodes to be swapped are not adjacent
+    	Node* t11=temp1->next;
+    	Node* t12=t11->next;
+    	Node* t21=temp2->next;
+    	Node* t22=t21->next;
+    	temp1->next=temp2->next;
+    	temp1->next->next=t12;
+    	temp2->next=t11;
+    	t11->next=t22;
+    	return head;
+    	}
+}
+int main()
+{
+	int t;
+	cin >> t;
+	while (t--)
+	{
+		int i, j;
+		Node *head = takeinput();
+		cin >> i;
+		cin >> j;
+		head = swapNodes(head, i, j);
+		print(head);
+	}
+	return 0;
+}
