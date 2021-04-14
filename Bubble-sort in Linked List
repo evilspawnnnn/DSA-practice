@@ -1,0 +1,102 @@
+//bubble sort iterative
+#include <iostream>
+class Node
+{
+public:
+	int data;
+	Node *next;
+	Node(int data)
+	{
+		this->data = data;
+		this->next = NULL;
+	}
+};
+
+using namespace std;
+#include "solution.h"
+Node *takeinput()
+{
+	int data;
+	cin >> data;
+	Node *head = NULL, *tail = NULL;
+	while (data != -1)
+	{
+		Node *newnode = new Node(data);
+		if (head == NULL)
+		{
+			head = newnode;
+			tail = newnode;
+		}
+		else
+		{
+			tail->next = newnode;
+			tail = newnode;
+		}
+		cin >> data;
+	}
+	return head;
+}
+void print(Node *head)
+{
+	Node *temp = head;
+	while (temp != NULL)
+	{
+		cout << temp->data << " ";
+		temp = temp->next;
+	}
+	cout << endl;
+}
+
+Node *bubbleSort(Node *head)
+{
+	// Write your code here
+    if(head==NULL || head->next==NULL)
+        return head;
+	// Node* current=head;
+	// Node* prev=NULL;
+    int count=0;
+    Node* temp=head;
+    while(temp!=NULL){
+        temp=temp->next;
+        count++;
+    }
+    for(int i=0;i<count-1;i++){				//for loop to have n-1 iterations 
+        Node* current=head;
+   		Node* prev=NULL;
+    	while(current->next!=NULL){
+        	if(prev!=NULL){
+        		if(current->data>current->next->data){
+            		prev->next=current->next;
+            		Node* Next=current->next;		//Next pointer declared
+            		current->next=Next->next;
+            		Next->next=current;
+            		prev=Next;						//prev pointer moved forward
+        		}
+        		else{								//when the order is correct
+	            	prev=prev->next;
+    	        	current=current->next;
+        		}
+        	}
+        	else{
+            	if(current->data>current->next->data){
+                	Node* Next=current->next;
+                	current->next=Next->next;
+                	Next->next=current;
+                	prev=Next;
+                	head=prev;					//head set to prev 
+            	}
+            	else{
+                	prev=current;
+                	current=current->next;
+            	}
+        	}
+    	}
+    }
+    return head;					//head pointer returned
+}
+int main()
+{
+	Node *head = takeinput();
+	head = bubbleSort(head);
+	print(head);
+}
