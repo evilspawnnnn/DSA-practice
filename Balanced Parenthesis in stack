@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+#include "solution.h"
+#include <stack>
+bool isBalanced(string expr){
+    stack <char> s1;
+    int i=0;
+    while(expr[i]!='\0'){
+        if(expr[i]=='(' ||expr[i]=='{' ||expr[i]=='['){
+            s1.push(expr[i]);
+        }
+        else if(expr[i]==')'){
+            if(s1.empty()){		//checked as if closing parenthesis is 1st character then it cannot be balanced
+                return false;
+            }
+            char x=s1.top();
+            if(x=='('){
+                s1.pop();
+            }
+            else {		//here elseif(x=='{' || x=='[') not needed as in stack only parenthesis are pushed no other characters
+                return false;
+            }
+        }
+        else if(expr[i]=='}'){
+            if(s1.empty()){
+                return false;
+            }
+            char x=s1.top();
+            if(x=='{'){
+                s1.pop();
+            }
+            else {
+                return false;
+            }
+        }
+        else if(expr[i]==']'){
+            if(s1.empty()){
+                return false;
+            }
+            char x=s1.top();
+            if(x=='['){
+                s1.pop();
+            }
+            else{
+                return false;
+            }
+        }
+        i++;
+    }
+    return s1.empty();
+}
+
+int main() 
+{
+    string input;
+    cin >> input;
+    cout << ((isBalanced(input)) ? "true" : "false");
+}
