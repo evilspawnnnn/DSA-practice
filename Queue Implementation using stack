@@ -1,0 +1,73 @@
+#include <iostream>
+using namespace std;
+template <typename T>
+class QueueArray{
+    T* data;
+    int size;
+    int capacity;
+    int nextIndex;
+    int firstIndex;
+    public:
+    QueueArray(int s){
+        data=new T[s];
+        size=0;
+        firstIndex=-1;
+        nextIndex=0;
+        capacity=s;
+    }
+    int getSize(){
+        return size;
+    }
+    bool isEmpty(){
+        return size==0;
+    }
+    void enqueue(T element){
+        if(size==capacity){
+            cout<<"Queue is full"<<endl;
+            return;
+        }
+        data[nextIndex]=element;
+        nextIndex=(nextIndex+1)%capacity;
+        if(firstIndex==-1){
+            firstIndex=0;
+        }
+        size++;
+    }
+    T top(){
+        if(size==0){
+            cout<<"Queue is full"<<endl;
+            return 0;
+        }
+        return data[firstIndex];
+    }
+    T dequeue(){
+        if(size==0){
+            cout<<"Queue is full"<<endl;
+            return 0;
+        }
+        T n=data[firstIndex];
+        firstIndex=(firstIndex+1)%capacity;
+        size--;
+        if(size==0){
+            nextIndex=0;
+            firstIndex=-1;
+        }
+        return n;
+    }
+};
+int main(){
+    int input;
+    cout<<"Enter size of queue:";
+    cin>>input;
+    QueueArray <int> q1(input);
+    q1.enqueue(26);
+    q1.enqueue(44);
+    q1.enqueue(57);
+    q1.enqueue(342);
+    cout<<q1.top()<<endl;
+    cout<<q1.getSize()<<endl;
+    cout<<q1.isEmpty()<<endl;
+    q1.dequeue();
+    cout<<q1.top()<<endl;
+    cout<<q1.getSize()<<endl;
+}
