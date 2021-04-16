@@ -1,0 +1,35 @@
+#include <iostream>
+#include <string>
+using namespace std;
+#include <stack>
+
+bool checkRedundantBrackets(string expression) {
+	// Write your code here
+    stack<char> s1;                       //making a stack 
+    int i=0;
+    while(expression[i]!='\0'){           //Loop to scan through the entire expression
+        while(expression[i]!=')'){        //Loop to push elements until a closing bracket encountered   
+            s1.push(expression[i]);
+            i++;
+        }
+        int count=0;                    //count variable declared to keep track of number of char b/w '(' & ')'
+        while(s1.top()!='('){
+            s1.pop();
+            count++;
+        }
+        if(count==0 || count==1){     //if no important char b/w the brackets
+            return true;
+        }
+        else{
+            s1.pop();
+            i++;
+        }
+    }
+    return false;
+}
+
+int main() {
+    string input;
+    cin >> input;
+    cout << ((checkRedundantBrackets(input)) ? "true" : "false");
+}
