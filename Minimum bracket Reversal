@@ -1,0 +1,61 @@
+#include <iostream>
+#include <string>
+using namespace std;
+#include <stack>
+
+int countBracketReversals(string input) {
+	// Write your code here
+    int c=0;
+    int i=0;
+    while(input[i]!='\0'){
+        c++;
+        i++;
+    }
+    stack<char> s1;
+    int count=0;
+    if(c%2!=0){
+        return -1;
+    }
+    else{
+        for(int j=0;j<c;j++){		//loop to scan the string
+
+            if(input[j]=='{'){
+                s1.push(input[j]);
+            }
+            else{
+                if(s1.empty()){			//if stack is empty then just push
+                    s1.push(input[j]);
+                }
+                else{
+                    if(s1.top()=='}'){		//if non-empty & top is } then push
+                        s1.push(input[j]);
+                    }
+                    else{					//if non-empty & top is { then pop
+            			s1.pop();
+                    }
+                }
+            }
+        }
+    }
+    char c1;
+    char c2;
+    while(!s1.empty()){
+        c1=s1.top();
+        s1.pop();
+        c2=s1.top();
+        s1.pop();
+        if(c1==c2){
+            count++;
+        }
+        else{
+            count+=2;
+        }
+    }
+    return count;
+}
+
+int main() {
+    string input;
+    cin >> input;
+    cout << countBracketReversals(input);
+}
