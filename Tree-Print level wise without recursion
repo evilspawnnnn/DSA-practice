@@ -1,0 +1,32 @@
+oid printLevelWise(TreeNode<int>* root) {
+    // Write your code here
+    if(root==NULL){
+        return;
+    }
+    // cout<<root->data<<": ";
+    // for(int i=0;i<root->children.size();i++){
+    //     cout<<root->children[i]->data<<" ";                      //when printing using recursion
+    // }
+    // cout<<endl;
+    // for(int i=0;i<root->children.size();i++){
+    //     PrintTree(root->children[i]);
+    // }
+    queue<TreeNode<int>*> q2;
+    q2.push(root);
+    while(q2.size()!=0){
+        TreeNode<int>* Front=q2.front();
+        q2.pop();
+        cout<<Front->data<<":";
+        for(int i=0;i<Front->children.size();i++){
+            if(i==Front->children.size()-1){
+                cout<<Front->children[i]->data;             //Printing levelwise
+                q2.push(Front->children[i]);
+            }
+            else{
+            	cout<<Front->children[i]->data<<",";
+            	q2.push(Front->children[i]);
+            }
+        }
+        cout<<endl;
+    }
+}
