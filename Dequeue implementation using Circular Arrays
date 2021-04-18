@@ -1,0 +1,169 @@
+#include<iostream>
+using namespace std;
+
+
+class Deque{
+   int* data;
+   int front;
+   int rear;
+   int capacity;
+   public:
+    Deque(int value){
+        data=new int[value];
+        capacity=value;
+        front=-1;
+        rear=-1;
+    }
+    void insertFront(int x){
+        if(front==rear+1||front==0 && rear==capacity-1){	
+            /*If Dequeue is full which could happen in two cases, one case is when you are in a linear array and after
+            all the operations the front points at the first index while the rear points at the last index then array
+            full.
+            The Second time this can happen is when suppose your rear was previously at the last index but the 0th index
+            was empty while there was an element present at the 1st index now if insertion was done through any manner the
+            woh insertion would have been done at 0th position now front was already at 1st position & if insertion was done 
+            by rear then rear would have been at 0th position so front=rear+1 condition comes into play 
+            */
+            cout<<"-1"<<endl;
+            return;
+        }
+        else if(front==-1 && rear==-1){		
+            /*if Deque is empty, this was the condition that was set by the constructor we made*/
+            front=0;
+            rear=0;
+            data[front]=x;
+        }
+        else if(front==0){
+            /*
+            Now we know that whenever we were doing insertion at front everytime we weere inserting at (front-1)th 
+            index but here front-1 th not possible so we will go circular instead and insert the element at 
+            capacity-1 th index which would be empty as if it were'nt empty then array would have been full
+            */
+            front=capacity-1;
+            data[front]=x;
+        }
+        else{
+            //this is the case after handling all the corner cases as whenever insertion at first we did front-1
+            front--;
+            data[front]=x;
+        }
+    }
+    void insertRear(int x){
+         if(front==rear+1||front==0 && rear==capacity-1){ //Checking if array is full
+            cout<<"-1"<<endl;
+            return;
+        }
+        else if(front==-1 && rear==-1){		//Checking if array is empty
+            front=0;
+            rear=0;
+            data[rear]=x;		//here inserting at rear ki index as it is insert rear
+        }
+        else if(rear==capacity-1){
+            /*Now if rear was at last index and we called insertRear then to insert the next element we always did
+            rear++ but no new index left fwd so we will go in a circular array i.e. we will point the rear at 0th index
+            and then insert the element*/
+            rear=0;		
+            data[rear]=x;
+        }
+        else{
+            //This is the usual case for insertion at the rear where rear incremented by 1 before insertion
+            rear++;
+            data[rear]=x;
+        }
+    }
+    /*
+    //To display the elements of the array
+    void display(){
+     if(front==rear+1||front==0 && rear==capacity-1){ //Checking if array is full
+            cout<<"-1"<<endl;
+            return;
+        }
+    int i=front;
+    while(i!=rear){
+    cout<<data[i]<<" ";
+    front=(front+1)%capacity;
+    }
+    cout<<data[rear]<<endl;
+    }
+    */
+    void deleteFront(){
+        if(front==-1 && rear==-1){
+            cout<<"-1"<<endl;
+            return;
+        }
+        else if(front==rear){//if only one element in deque
+            front=-1;
+            rear=-1;
+        }
+        else if(front==capacity-1){//if front is at last value then we wont be able to do front++
+            front=0;
+        }
+        else{
+            front++;
+        }
+    }
+    void deleteRear(){
+        if(front==-1 && rear==-1){
+            cout<<"-1"<<endl;
+            return;
+        }
+        else if(front==rear){//if only one element in deque
+            front=-1;
+            rear=-1;
+        }
+        else if(rear==0){
+            rear=capacity-1;
+        }
+        else{
+            rear--;
+        }
+    }
+    int getFront(){
+       if(front==-1 && rear==-1){ //Checking if array is empty
+            return -1;
+        }  
+        return data[front];
+    }
+    int getRear(){
+         if(front==-1 && rear==-1){ //Checking if array is empty
+            return -1;
+        }
+        return data[rear];
+    }
+};
+
+
+int main()
+{
+    Deque dq(10);
+    int choice,input;
+    while(true) {
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                cin >> input;
+                dq.insertFront(input);
+                break;
+            case 2:
+                cin >> input;
+                dq.insertRear(input);
+                break;
+            case 3:
+                dq.deleteFront();
+                break;
+            case 4:
+                dq.deleteRear();
+                break;
+            case 5:
+                cout << dq.getFront() << "\n";
+                break;
+            case 6:
+                cout << dq.getRear() << "\n";
+                break;
+            default:
+                return 0;
+        }
+    }
+    
+    return 0;
+}
